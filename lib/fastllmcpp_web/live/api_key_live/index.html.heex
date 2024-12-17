@@ -1,0 +1,43 @@
+<.header>
+  Listing Api keys
+  <:actions>
+    <.link patch={~p"/api_keys/new"}>
+      <.button>New Api key</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="api_keys"
+  rows={@streams.api_keys}
+  row_click={fn {_id, api_key} -> JS.navigate(~p"/api_keys/#{api_key}") end}
+>
+  <:col :let={{_id, api_key}} label="Key">{api_key.key}</:col>
+  <:col :let={{_id, api_key}} label="Email">{api_key.email}</:col>
+  <:col :let={{_id, api_key}} label="Last viewed">{api_key.last_viewed}</:col>
+  <:action :let={{_id, api_key}}>
+    <div class="sr-only">
+      <.link navigate={~p"/api_keys/#{api_key}"}>Show</.link>
+    </div>
+    <.link patch={~p"/api_keys/#{api_key}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, api_key}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: api_key.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="api_key-modal" show on_cancel={JS.patch(~p"/api_keys")}>
+  <.live_component
+    module={FastllmcppWeb.ApiKeyLive.FormComponent}
+    id={@api_key.id || :new}
+    title={@page_title}
+    action={@live_action}
+    api_key={@api_key}
+    patch={~p"/api_keys"}
+  />
+</.modal>
