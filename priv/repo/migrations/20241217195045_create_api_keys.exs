@@ -4,7 +4,7 @@ defmodule Fastllmcpp.Repo.Migrations.CreateApiKeys do
   def change do
     create table(:api_keys, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :key, :uuid
+      add :key, :binary_id
       add :email, :string
       add :last_viewed, :utc_datetime
 

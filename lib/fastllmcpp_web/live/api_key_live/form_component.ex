@@ -65,13 +65,6 @@ defmodule FastllmcppWeb.ApiKeyLive.FormComponent do
   end
 
   defp save_api_key(socket, :new, api_key_params) do
-    # api_key_params = Map.merge(api_key_params, %{
-    #   "uuid" => Ecto.UUID.generate()
-    # })
-    # api_key_params = 
-    #   api_key_params
-    #   |> Map.put("uuid", Ecto.UUID.generate())
-
     case ApiKeys.create_api_key(api_key_params) do
       {:ok, api_key} ->
         notify_parent({:saved, api_key})
