@@ -547,6 +547,24 @@ defmodule FastllmcppWeb.CoreComponents do
   end
 
   @doc """
+  Creates a disjoint section.
+
+  ## Examples
+
+      <.section>
+      </.section>
+  """
+  def section(assigns) do
+    # assigns = assign_new(assigns, :class, fn -> "bg-gray-100 p-6 rounded-lg shadow" end)
+
+    ~H"""
+    <section class={"bg-gray-100 p-6 rounded-lg shadow mt-8"}>
+      <%= render_slot(@inner_block) %>
+    </section>
+    """
+  end
+
+  @doc """
   Renders a back navigation link.
 
   ## Examples

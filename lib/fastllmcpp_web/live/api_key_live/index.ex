@@ -6,7 +6,16 @@ defmodule FastllmcppWeb.ApiKeyLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :api_keys, ApiKeys.list_api_keys())}
+    # {:ok, stream(socket, :api_keys, ApiKeys.list_api_keys())}
+    form = to_form(%{"private_key" => nil}, as: :search)
+
+    socket =
+      socket
+      |> assign(api_key: nil, error: nil) # Add form-related assigns
+      |> assign(form: form)
+      |> stream(:api_keys, ApiKeys.list_api_keys())
+
+    {:ok, socket}
   end
 
   @impl true
@@ -43,5 +52,17 @@ defmodule FastllmcppWeb.ApiKeyLive.Index do
     {:ok, _} = ApiKeys.delete_api_key(api_key)
 
     {:noreply, stream_delete(socket, :api_keys, api_key)}
+  end
+
+  @impl true
+  # def handle_event("search", %{"private_key" => private_key}, socket) do
+  def handle_event("search", %{"search" => %{"private_key" => private_key}}, socket) do
+    case ApiKeys.get_api_id_by_key!(private_key) do
+      nil ->
+        {:noreply, assign(socket, error: "API Key not found")}
+
+      api_key ->
+        {:noreply, push_navigate(socket, to: ~p"/api_keys/#{api_key.id}")}
+    end
   end
 end

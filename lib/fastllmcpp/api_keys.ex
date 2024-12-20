@@ -38,6 +38,24 @@ defmodule Fastllmcpp.ApiKeys do
   def get_api_key!(id), do: Repo.get!(ApiKey, id)
 
   @doc """
+  Gets a single api_key by the private key value (:key).
+
+  Raises `Ecto.NoResultsError` if the Api key does not exist.
+
+  ## Examples
+
+      iex> get_api_id_by_key!(123)
+      %ApiKey{}
+
+      iex> get_api_id_by_key!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_api_id_by_key!(key) do
+    Repo.get_by(ApiKey, key: key)
+  end
+
+  @doc """
   Creates a api_key.
 
   ## Examples

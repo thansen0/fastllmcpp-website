@@ -2,10 +2,12 @@ defmodule FastllmcppWeb.ApiKeyLive.Show do
   use FastllmcppWeb, :live_view
 
   alias Fastllmcpp.ApiKeys
+  alias Fastllmcpp.Prompts
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, stream(socket, :prompts, Prompts.list_prompts())}
+    # {:ok, socket}
   end
 
   @impl true

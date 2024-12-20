@@ -1,12 +1,26 @@
 <.header>
-  Listing Api keys
+  Create an Api key
   <:actions>
     <.link patch={~p"/api_keys/new"}>
-      <.button>New Api key</.button>
+      <.button>Create New Api key</.button>
     </.link>
   </:actions>
 </.header>
 
+<.header>
+  Sign into an Api key
+  <:actions>
+    <!-- consider adding validator for uuid formatting -->
+    <.simple_form for={@form} phx-submit="search">
+      <.input id="private_key" field={@form[:private_key]} label="Private API Key (UUID)"/>
+      <:actions>
+        <.button>Search</.button>
+      </:actions>
+    </.simple_form>
+  </:actions>
+</.header>
+
+<!--
 <.table
   id="api_keys"
   rows={@streams.api_keys}
@@ -29,7 +43,7 @@
       Delete
     </.link>
   </:action>
-</.table>
+</.table> -->
 
 <.modal :if={@live_action in [:new, :edit]} id="api_key-modal" show on_cancel={JS.patch(~p"/api_keys")}>
   <.live_component
