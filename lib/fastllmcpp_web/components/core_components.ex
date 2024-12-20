@@ -177,7 +177,7 @@ defmodule FastllmcppWeb.CoreComponents do
   end
 
   @doc """
-  Renders a simple form.
+  Renders a simple form. Uses default class OR new class.
 
   ## Examples
 
@@ -191,6 +191,7 @@ defmodule FastllmcppWeb.CoreComponents do
   """
   attr :for, :any, required: true, doc: "the data structure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
+  attr :class, :string, default: nil
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
@@ -202,7 +203,7 @@ defmodule FastllmcppWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class={@class || "mt-10 space-y-8 bg-white"}>
         {render_slot(@inner_block, f)}
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           {render_slot(action, f)}
@@ -361,6 +362,23 @@ defmodule FastllmcppWeb.CoreComponents do
         ]}
         {@rest}
       >{Phoenix.HTML.Form.normalize_value("textarea", @value)}</textarea>
+      <.error :for={msg <- @errors}>{msg}</.error>
+    </div>
+    """
+  end
+
+  # Removes formatting 
+  def input(%{type: "simple"} = assigns) do
+    ~H"""
+    <div>
+      <.label for={@id}>{@label}</.label>
+      <input
+        type={@type}
+        name={@name}
+        id={@id}
+        value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+        {@rest}
+      />
       <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
@@ -554,13 +572,58 @@ defmodule FastllmcppWeb.CoreComponents do
       <.section>
       </.section>
   """
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
   def section(assigns) do
-    # assigns = assign_new(assigns, :class, fn -> "bg-gray-100 p-6 rounded-lg shadow" end)
-
     ~H"""
-    <section class={"bg-gray-100 p-6 rounded-lg shadow mt-8"}>
+    <section class={["bg-gray-100 p-6 rounded-lg shadow mt-8", @class]}>
       <%= render_slot(@inner_block) %>
     </section>
+    """
+  end
+
+  @doc """
+  Renders a paragraph with default Tailwind styling.
+
+  ## Examples
+
+      <.p>
+        This is a paragraph that uses a default style.
+      </.p>
+
+      <.p class="text-red-600">
+        This paragraph has overridden text color.
+      </.p>
+  """
+  attr :class, :string, default: nil
+  slot :inner_block, required: true
+
+  def p(assigns) do
+    ~H"""
+    <p class={["mb-4 text-base text-gray-800 leading-relaxed", @class]}>
+      <%= render_slot(@inner_block) %>
+    </p>
+    """
+  end
+
+  @doc """
+  Renders a link with a traditional blue link style. Supports navigate, patch, or href.
+  """
+  attr :navigate, :string, default: nil, doc: "Route for a full-page navigation"
+  attr :patch, :string, default: nil, doc: "Route for a LiveView patch"
+  attr :href, :string, default: nil, doc: "Standard hyperlink destination"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  slot :inner_block, required: true
+
+  def blue_link(assigns) do
+    ~H"""
+    <.link
+      navigate={@navigate}
+      patch={@patch}
+      href={@href}
+      class={["text-blue-600 underline hover:text-blue-800 visited:text-purple-600", @class]}
+    >
+      <%= render_slot(@inner_block) %>
+    </.link>
     """
   end
 

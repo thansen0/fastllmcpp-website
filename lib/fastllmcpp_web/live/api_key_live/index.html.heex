@@ -1,24 +1,90 @@
-<.header>
-  Create an Api key
-  <:actions>
-    <.link patch={~p"/api_keys/new"}>
-      <.button>Create New Api key</.button>
-    </.link>
-  </:actions>
-</.header>
+<.section>
+  <.header>
+    FastLLM.cpp
+  </.header>
 
-<.header>
-  Sign into an Api key
-  <:actions>
-    <!-- consider adding validator for uuid formatting -->
-    <.simple_form for={@form} phx-submit="search">
-      <.input id="private_key" field={@form[:private_key]} label="Private API Key (UUID)"/>
+  <.p>When building my last startup, I had wished there was a locally-hostable, ultra-fast llm service I could drop into my project. That's what FastLLM.cpp is.</.p>
+
+  <.p>Based on <.blue_link navigate="https://github.com/ggerganov/llama.cpp">llama.cpp</.blue_link>  and ggml, FastLLM.cpp is fully <.blue_link navigate="https://github.com/thansen0/fastllm.cpp?tab=Unlicense-1-ov-file">open-sourced</.blue_link>, written in C++, and based around gRPC calls. The goal is to reduce latency as much as possible for real time applications.</.p>
+
+  <.p>We offer free API keys, however they're not intended for production. We offer no paid tier, only a single model, and no garenteed support. The goal of the free tier is to help you get up and running, and help me test the service.</.p>
+</.section>
+
+<.section>
+  <.header>
+    Create an Api key
+    <:actions>
+      <.link patch={~p"/api_keys/new"}>
+        <.button>Create New Api key</.button>
+      </.link>
+    </:actions>
+  </.header>
+</.section>
+
+<!-- <.section>
+  <.header>
+    Sign into an Api key
+    <:actions>
+      <! -- consider adding validator for uuid formatting - ->
+      <.simple_form for={@form} phx-submit="search">
+        <.input id="private_key" field={@form[:private_key]} label="Private API Key (UUID)"/>
+        <:actions>
+          <.button>Search</.button>
+        </:actions>
+      </.simple_form>
+    </:actions>
+  </.header>
+</.section> -->
+
+<.section>
+<.simple_form for={@form} phx-submit="search" class="max-w-md mx-auto">
+  <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+  <div class="relative">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
+      </div>
+      <.input
+      field={@form[:private_key]}
+      id="default-search"
+      type="simple"
+      placeholder="Enter Private API Key (UUID)"
+      required
+      class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg
+             bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700
+             dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+             dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    />
+      <!-- <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Private API Key (UUID)" required /> -->
+      <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+  </div>
+</.simple_form>
+</.section>
+
+
+
+<!--<.section>
+  <div class="max-w-2xl mx-auto px-4">
+    <.simple_form for={@form} phx-submit="search" class="flex items-center space-x-3 bg-white p-4 rounded-lg shadow">
+      <.input 
+        id="private_key" 
+        field={@form[:private_key]}
+        placeholder="Enter Private API Key (UUID)"
+        class="flex-1 text-lg py-2 px-3" 
+      />
       <:actions>
-        <.button>Search</.button>
+        <.button class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+          Search
+        </.button>
       </:actions>
     </.simple_form>
-  </:actions>
-</.header>
+  </div>
+</.section> -->
+
+<.section>
+  <p>Don't be afraid to contact me on <.blue_link navigate="https://x.com/mongocompass">Twitter/X</.blue_link> or email at contact@thomashansen.xyz. I genuinly appreciate the interest and am happy to help with your project.</p>
+</.section>
 
 <!--
 <.table
