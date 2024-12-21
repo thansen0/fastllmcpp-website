@@ -10,5 +10,7 @@ defmodule Fastllmcpp.Repo.Migrations.CreateApiKeys do
 
       timestamps(type: :utc_datetime)
     end
+
+    create unique_index(:api_keys, [:key])
   end
 end

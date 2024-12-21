@@ -5,7 +5,6 @@ defmodule Fastllmcpp.ApiKeys.ApiKey do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "api_keys" do
-    # field :key, Ecto.UUID, default: Ecto.UUID.generate()
     # field :id, :binary_id, primary_key: true, autogenerate: true
     field :key, :binary_id, default: Ecto.UUID.generate()
     field :email, :string, default: ""

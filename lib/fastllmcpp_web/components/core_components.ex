@@ -620,7 +620,7 @@ defmodule FastllmcppWeb.CoreComponents do
       navigate={@navigate}
       patch={@patch}
       href={@href}
-      class={["text-blue-600 underline hover:text-blue-800 visited:text-purple-600", @class]}
+      class={["text-blue-600 underline hover:text-blue-800 visited:text-purple-600 no-underline", @class]}
     >
       <%= render_slot(@inner_block) %>
     </.link>

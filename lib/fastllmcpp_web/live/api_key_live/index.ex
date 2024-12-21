@@ -57,6 +57,8 @@ defmodule FastllmcppWeb.ApiKeyLive.Index do
   @impl true
   # def handle_event("search", %{"private_key" => private_key}, socket) do
   def handle_event("search", %{"search" => %{"private_key" => private_key}}, socket) do
+    # String.trim(private_key)
+    IO.puts(private_key)
     case ApiKeys.get_api_id_by_key!(private_key) do
       nil ->
         {:noreply, assign(socket, error: "API Key not found")}
@@ -66,3 +68,6 @@ defmodule FastllmcppWeb.ApiKeyLive.Index do
     end
   end
 end
+#         IO.puts(api_key)
+# 15983c94-2f89-4bdb-ab25-5a6321ac638b
+# 15983c94-2f89-4bdb-ab25-5a6321ac638b

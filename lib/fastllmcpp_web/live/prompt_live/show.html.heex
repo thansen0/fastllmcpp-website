@@ -13,7 +13,7 @@
   <:item title="Response">{@prompt.response}</:item>
 </.list>
 
-<.back navigate={~p"/prompts"}>Back to prompts</.back>
+<.back navigate={~p"/api_keys/#{@api_key}"}>Back to API Key</.back>
 
 <.modal :if={@live_action == :edit} id="prompt-modal" show on_cancel={JS.patch(~p"/prompts/#{@prompt}")}>
   <.live_component

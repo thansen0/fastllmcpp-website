@@ -18,6 +18,7 @@ defmodule FastllmcppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/docs", PageController, :docs
 
     live "/api_keys", ApiKeyLive.Index, :index
     live "/api_keys/new", ApiKeyLive.Index, :new
