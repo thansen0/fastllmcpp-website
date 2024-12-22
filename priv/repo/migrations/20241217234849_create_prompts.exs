@@ -6,7 +6,7 @@ defmodule Fastllmcpp.Repo.Migrations.CreatePrompts do
       add :id, :binary_id, primary_key: true
       add :prompt, :text
       add :response, :text
-      add :api_key_key, references(:api_keys, on_delete: :nothing, type: :binary_id)
+      add :api_key_key, references(:api_keys, column: :key, on_delete: :nothing, type: :binary_id)
 
       timestamps(type: :utc_datetime)
     end

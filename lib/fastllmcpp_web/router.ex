@@ -37,9 +37,11 @@ defmodule FastllmcppWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FastllmcppWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", FastllmcppWeb do
+    pipe_through :api
+
+    post "/prompts", PromptController, :create
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:fastllmcpp, :dev_routes) do
