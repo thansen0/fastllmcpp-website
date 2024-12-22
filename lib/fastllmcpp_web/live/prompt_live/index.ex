@@ -6,6 +6,10 @@ defmodule FastllmcppWeb.PromptLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Prompts.subscribe()
+    end
+
     {:ok, stream(socket, :prompts, Prompts.list_prompts())}
   end
 

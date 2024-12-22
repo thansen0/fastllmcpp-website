@@ -367,8 +367,8 @@ defmodule FastllmcppWeb.CoreComponents do
     """
   end
 
-  # Removes formatting 
-  def input(%{type: "simple"} = assigns) do
+  # Removes formatting for search bar
+  def input(%{type: "search"} = assigns) do
     ~H"""
     <div>
       <.label for={@id}>{@label}</.label>
@@ -573,10 +573,12 @@ defmodule FastllmcppWeb.CoreComponents do
       </.section>
   """
   attr :class, :string, default: nil, doc: "Additional CSS classes"
+  slot :inner_block, required: true
+  
   def section(assigns) do
     ~H"""
     <section class={["bg-gray-100 p-6 rounded-lg shadow mt-8", @class]}>
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </section>
     """
   end

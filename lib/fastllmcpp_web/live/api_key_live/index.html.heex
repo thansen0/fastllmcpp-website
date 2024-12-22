@@ -21,21 +21,6 @@
   </.header>
 </.section>
 
-<!-- <.section>
-  <.header>
-    Sign into an Api key
-    <:actions>
-      <! -- consider adding validator for uuid formatting - ->
-      <.simple_form for={@form} phx-submit="search">
-        <.input id="private_key" field={@form[:private_key]} label="Private API Key (UUID)"/>
-        <:actions>
-          <.button>Search</.button>
-        </:actions>
-      </.simple_form>
-    </:actions>
-  </.header>
-</.section> -->
-
 <.section>
   <.header>
     Search for a Private Key
@@ -51,7 +36,7 @@
         <.input
         field={@form[:private_key]}
         id="default-search"
-        type="simple"
+        type="search"
         placeholder="Enter Private API Key (UUID)"
         required
         class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg
