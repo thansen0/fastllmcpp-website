@@ -26,13 +26,12 @@ defmodule FastllmcppWeb.ApiKeyLive.Show do
   end
 
   @impl true
-  def handle_info({FastllmcppWeb.ApiKeyLive.FormComponent, {:saved, prompt}}, socket) do
-    {:noreply, stream_insert(socket, :prompts, prompt)}
-    # if prompt.api_key_key == socket.assigns.api_key.key do
-    #   {:noreply, stream_insert(socket, :prompts, prompt)}
-    # else
-    #   {:noreply, socket}
-    # end
+  def handle_info({:prompt_created, %Fastllmcpp.Prompts.Prompt{} = prompt}, socket) do
+    if prompt.api_key_key == socket.assigns.api_key.key do
+      {:noreply, stream_insert(socket, :prompts, prompt)}
+    else
+      {:noreply, socket}
+    end
   end
 
   @impl true

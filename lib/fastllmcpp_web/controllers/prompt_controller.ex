@@ -2,8 +2,32 @@ defmodule FastllmcppWeb.PromptController do
   use FastllmcppWeb, :controller
 #   use FastllmcppWeb, :live_view
 
+  alias Fastllmcpp.Repo
+  alias Fastllmcpp.ApiKeys.ApiKey
+
   alias Fastllmcpp.Prompts
   alias Fastllmcpp.Prompts.Prompt
+
+  # GET /api/verify_pkey
+  def verify(conn, %{"key" => key}) do
+    case Repo.get_by(ApiKey, key: key) do
+      nil ->
+        conn
+        |> put_status(:unauthorized)
+        |> json(%{error: "Invalid API key"})
+
+      api_key ->
+        conn
+        |> put_status(:ok)
+        |> json(%{key: api_key.key})
+    end
+  end
+
+  def verify(conn, _params) do
+    conn
+    |> put_status(:bad_request)
+    |> json(%{error: "Missing API key"})
+  end
 
   # POST /api/prompts
   def create(conn, %{"prompt" => prompt_params}) do
@@ -17,7 +41,8 @@ defmodule FastllmcppWeb.PromptController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(:error, changeset: changeset)
+        # |> render(:error, changeset: changeset)
+        |> json(%{error: "Unable to log prompt"})
     end
   end
 

@@ -40,6 +40,7 @@ defmodule FastllmcppWeb.Router do
   scope "/api", FastllmcppWeb do
     pipe_through :api
 
+    post "/verify_pkey", PromptController, :verify
     post "/prompts", PromptController, :create
   end
 
