@@ -1,9 +1,9 @@
 <.header>
   Api key {@api_key.id}
-  <:subtitle>This is a api_key record from your database.</:subtitle>
+  <:subtitle>Generated API key. Pass in the private key through gRPC calls to chat with our LLM.</:subtitle>
   <:actions>
     <.link patch={~p"/api_keys/#{@api_key}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit api_key</.button>
+      <.button>Edit API key</.button>
     </.link>
   </:actions>
 </.header>

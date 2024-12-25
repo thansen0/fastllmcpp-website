@@ -23,5 +23,4 @@ defmodule FastllmcppWeb.PromptLive.Show do
   end
 
   defp page_title(:show), do: "Show Prompt"
-  defp page_title(:edit), do: "Edit Prompt"
 end

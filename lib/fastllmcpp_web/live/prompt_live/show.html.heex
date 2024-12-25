@@ -1,11 +1,6 @@
 <.header>
   Prompt {@prompt.id}
-  <:subtitle>This is a prompt record from your database.</:subtitle>
-  <:actions>
-    <.link patch={~p"/prompts/#{@prompt}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit prompt</.button>
-    </.link>
-  </:actions>
+  <:subtitle>Processed LLM Chat Prompt.</:subtitle>
 </.header>
 
 <.list>

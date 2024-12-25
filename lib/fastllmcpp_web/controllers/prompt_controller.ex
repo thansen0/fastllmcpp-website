@@ -1,6 +1,5 @@
 defmodule FastllmcppWeb.PromptController do
   use FastllmcppWeb, :controller
-#   use FastllmcppWeb, :live_view
 
   alias Fastllmcpp.Repo
   alias Fastllmcpp.ApiKeys.ApiKey
@@ -38,7 +37,7 @@ defmodule FastllmcppWeb.PromptController do
         # |> render("show.json", prompt: prompt)
         |> render(:show, prompt: prompt)
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Ecto.Changeset{} = _changeset} ->
         conn
         |> put_status(:unprocessable_entity)
         # |> render(:error, changeset: changeset)
